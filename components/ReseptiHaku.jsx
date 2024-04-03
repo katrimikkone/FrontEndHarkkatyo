@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Grid, Card, CardHeader, Box, CardMedia, Typography, CardContent, Button, TextField, Paper } from '@mui/material';
+import { Grid, Card, CardHeader, Box, CardMedia, Typography, CardContent, Button, TextField, ImageList, FormControl, MenuItem, Select } from '@mui/material';
 
 function ReseptiHaku({ reseptit }) {
     const [haku, setHaku] = useState('');
@@ -17,14 +17,15 @@ function ReseptiHaku({ reseptit }) {
     const HaeReseptit = () => {
         //console.log(reseptit)
         if (haetaan) {
-            let result = reseptit.filter(resepti => resepti.nimi.includes(haku))
+            let result = reseptit.filter(resepti => resepti.nimi.includes(haku) || resepti.kategoria.includes(haku))
 
             if (result.length > 0) {
                 let haku = result.map(resepti => {
+
                     return (
                         <>
-                            <Box sx={{ backgroundColor: '#80ced6', p: 2 }}>
-                                <Grid item key={resepti.id}>
+                            <Box item key={resepti.id} sx={{ backgroundColor: '#80ced6', p: 2 }}>
+                                <Grid item key={resepti.id} >
                                     <Card sx={{ maxWidth: 350, backgroundColor: '#d5f4e6' }}>
                                         <CardHeader title={resepti.nimi} subheader={resepti.kuvaus} />
                                         {
@@ -49,6 +50,7 @@ function ReseptiHaku({ reseptit }) {
                             </p >
                         </>
                     )
+
                 }) //map
 
                 return (haku)
@@ -68,6 +70,17 @@ function ReseptiHaku({ reseptit }) {
                 Hae reseptin nimellä tai osalla sitä:
             </Typography>
             <TextField name="nimi" variant="standard" onChange={muuta} /><br />
+            {/**      <Typography variant="body1">
+                Tai kategorioittain:
+            </Typography>
+            <FormControl variant="standard" sx={{ m: 1, width: 200 }} name="lomakekontrol">
+                <Select  >
+                    <MenuItem value=""></MenuItem>
+                    <MenuItem value={'Alkuruoka'}>Alkuruoka</MenuItem>
+                    <MenuItem value={'Pääruoka'}>Pääruoka</MenuItem>
+                    <MenuItem value={`Jälkiruoka`}>Jälkiuoka</MenuItem>
+                </Select>
+            </FormControl><br /> */}
             <Button variant="contained" onClick={hae}>Hae</Button>
             {HaeReseptit()}
 

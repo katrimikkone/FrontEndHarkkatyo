@@ -8,8 +8,8 @@ function ReseptiLomake() {
             kategoria: '',
             kuvaus: '',
             valmistusaika: 0,
-            vaikeustaso: 0,
-
+            tahdet: 0,
+            suosikki: false
         }
     );
 
@@ -21,6 +21,7 @@ function ReseptiLomake() {
                 ...resepti, [e.target.name]: e.target.value
             }
         )
+        setViesti('')
     }
 
     const handleChange = (e) => {
@@ -35,9 +36,11 @@ function ReseptiLomake() {
                 kuvaus: '',
                 valmistusaika: 0,
                 tahdet: 0,
-
+                suosikki: false
             }
+
         )
+        setViesti('Resepti lisättiin listaukseen')
     }
 
     return (
@@ -73,7 +76,7 @@ function ReseptiLomake() {
                 </FormControl><br />
 
                 <Button variant="contained" onClick={() => lisaa()}>Lisää</Button>
-
+                {viesti}
             </Box>
         </Paper >
     )

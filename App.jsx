@@ -2,9 +2,13 @@ import ReseptiHaku from "./components/ReseptiHaku";
 import ReseptiListaus from "./components/ReseptiListaus";
 import ReseptiLomake from "./components/ReseptiLomake";
 import TabsMUI from "./muinavi/TabsMUI";
+import { Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from "@mui/material";
 import { green, teal, lime } from '@mui/material/colors'
+import DrawerMUI from "./muinavi/DrawerMUI";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 
 const reseptit = [
   {
@@ -14,7 +18,8 @@ const reseptit = [
     kuvaus: 'Stir fried chicken with fries and rice',
     valmistusaika: 35,
     tahdet: 5,
-    kuva: 'pics/pollosaltado.jpg'
+    kuva: 'pics/pollosaltado.jpg',
+    favorite: true,
   },
   {
     id: 2,
@@ -23,7 +28,8 @@ const reseptit = [
     kuvaus: 'Peruvian pesto noodles with beef steak',
     valmistusaika: 40,
     tahdet: 5,
-    kuva: 'pics/tallarinesverdes.jpg'
+    kuva: 'pics/tallarinesverdes.jpg',
+    favorite: false,
   },
   {
     id: 3,
@@ -32,7 +38,8 @@ const reseptit = [
     kuvaus: 'Fresh fish cooked in lime juice and ají',
     valmistusaika: 30,
     tahdet: 5,
-    kuva: 'pics/cevichepescado.jpg'
+    kuva: 'pics/cevichepescado.jpg',
+    favorite: false,
   },
   {
     id: 4,
@@ -41,7 +48,8 @@ const reseptit = [
     kuvaus: 'Dessert featuring a luscious layer of dulce de leche topped with a light, caramelized meringue',
     valmistusaika: 60,
     tahdet: 5,
-    kuva: 'pics/suspirolimeno.jpg'
+    kuva: 'pics/suspirolimeno.jpg',
+    favorite: false,
   },
   {
     id: 5,
@@ -50,7 +58,8 @@ const reseptit = [
     kuvaus: 'Delicious combination of flavors, colors and tradition.',
     valmistusaika: 105,
     tahdet: 5,
-    kuva: 'pics/mazamorra.jpg'
+    kuva: 'pics/mazamorra.jpg',
+    favorite: true,
   },
   {
     id: 6,
@@ -59,7 +68,8 @@ const reseptit = [
     kuvaus: 'Fresh seafood combined with fish cooked in lime juice and ají.',
     valmistusaika: 45,
     tahdet: 5,
-    kuva: 'pics/cevichemixto.jpg'
+    kuva: 'pics/cevichemixto.jpg',
+    favorite: false,
   },
   {
     id: 7,
@@ -68,7 +78,8 @@ const reseptit = [
     kuvaus: 'Yellow ají sauce served with potato.',
     valmistusaika: 45,
     tahdet: 5,
-    kuva: 'pics/papahuancaina.jpg'
+    kuva: 'pics/papahuancaina.jpg',
+    favorite: false,
   },
   {
     id: 8,
@@ -77,9 +88,35 @@ const reseptit = [
     kuvaus: 'Mashed potato made with ají amarillo chili pepper layered with tuna fillet and a slight hint of mayonnaise topped off with a slice of boiled egg.',
     valmistusaika: 55,
     tahdet: 5,
-    kuva: 'pics/causadeatun.jpg'
+    kuva: 'pics/causadeatun.jpg',
+    favorite: true,
   }
 ]
+
+const router = createBrowserRouter([
+  {
+    element: <DrawerMUI />,
+    // errorElement: <Error />,
+    children: [
+      {
+        path: '/',
+        element: <Typography>Perulaisen ruoan sovellus</Typography>
+      },
+      {
+        path: 'listaa',
+        element: <ReseptiListaus reseptit={reseptit} />
+      },
+      {
+        path: 'hae',
+        element: <ReseptiHaku reseptit={reseptit} />,
+      },
+      {
+        path: 'lisaa',
+        element: <ReseptiLomake />,
+      }
+    ]
+  },
+]);
 
 const theme = createTheme({
   palette: {
@@ -97,14 +134,13 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <TabsMUI reseptit={reseptit} />
-        {/**     <ReseptiLomake />
-        <ReseptiHaku lista={reseptit} />
-        <ReseptiListaus lista={reseptit} />*/}
-      </ThemeProvider >
-      { /**  <TabsMUI lista={reseptit} />
+
+        <DrawerMUI reseptit={reseptit} />
+        {/**  <DrawerMUI reseptit={reseptit} />
+         *  <TabsMUI reseptit={reseptit} />
                     */}
 
-
+      </ThemeProvider >
 
     </>
   )
