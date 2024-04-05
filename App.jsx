@@ -2,12 +2,14 @@ import ReseptiHaku from "./components/ReseptiHaku";
 import ReseptiListaus from "./components/ReseptiListaus";
 import ReseptiLomake from "./components/ReseptiLomake";
 import TabsMUI from "./muinavi/TabsMUI";
-import { Typography } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from "@mui/material";
 import { green, teal, lime } from '@mui/material/colors'
 import DrawerMUI from "./muinavi/DrawerMUI";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ListaaSuosikit from "./components/ListaaSuosikit";
+import { useState } from "react";
 
 
 const reseptit = [
@@ -100,10 +102,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Typography>Perulaisen ruoan sovellus</Typography>
-      },
-      {
-        path: 'listaa',
         element: <ReseptiListaus reseptit={reseptit} />
       },
       {
@@ -113,32 +111,66 @@ const router = createBrowserRouter([
       {
         path: 'lisaa',
         element: <ReseptiLomake />,
+      },
+      {
+        path: 'suosikit',
+        element: <ListaaSuosikit />,
       }
     ]
   },
 ]);
 
+
+
+
 const theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#efcf2c',
+    },
+    secondary: {
+      main: '#a7b788',
+    },
+    text: {
+      primary: '#003049',
+      secondary: '#4c87a0',
+    },
+    background: {
+      default: 'rgba(234,225,211,0.81)',
+      paper: '#efd2a7',
+    },
+  },
+  typography: { fontFamily: "'Nanum Gothic', 'sans-serif'" },
+})
+
+/**const theme = createTheme({
   palette: {
     primary: { main: teal[100], contrastText: '#FFFFFF' },
     secondary: { main: green[800], contrastText: '#FFFFFF' },
     text: { primary: teal[800], secondary: lime[700] }
   },
   typography: { fontFamily: "'Nanum Gothic', 'sans-serif'" },
-})
+}) */
+
+
 
 function App() {
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <TabsMUI reseptit={reseptit} />
 
-        <DrawerMUI reseptit={reseptit} />
-        {/**  <DrawerMUI reseptit={reseptit} />
+        <CssBaseline />
+
+        <RouterProvider router={router} />
+
+        {/** <ThemeProvider theme={theme}>
+       * <ThemeProvider themeOptions={themeOptions} />
+       *  <DrawerMUI reseptit={reseptit} />
          *  <TabsMUI reseptit={reseptit} />
-                    */}
+            <TabsMUI reseptit={reseptit} />
+            <DrawerMUI reseptit={reseptit} />   */}
 
       </ThemeProvider >
 

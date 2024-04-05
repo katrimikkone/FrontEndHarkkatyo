@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Grid, Card, CardHeader, Box, CardMedia, Typography, CardContent, Button, TextField, ImageList, FormControl, MenuItem, Select } from '@mui/material';
+import { Grid, Card, CardHeader, Box, CardMedia, Typography, CardContent, Button, TextField, Container, ImageList, FormControl, MenuItem, Select } from '@mui/material';
 
 function ReseptiHaku({ reseptit }) {
     const [haku, setHaku] = useState('');
     const [haetaan, setHaetaan] = useState(false);
+    const [kategoria, setKategoria] = useState('')
 
     const muuta = (e) => {
         setHaku(e.target.value)
@@ -12,26 +13,34 @@ function ReseptiHaku({ reseptit }) {
 
     const hae = () => {
         setHaetaan(true)
+        console.log("Searching...");
+    }
+
+    const muutaKategoria = (e) => {
+        setKategoria(e.target.value);
+        setHaetaan(false);
+        console.log("Selected category:", kategoria);
     }
 
     const HaeReseptit = () => {
         //console.log(reseptit)
         if (haetaan) {
-            let result = reseptit.filter(resepti => resepti.nimi.includes(haku) || resepti.kategoria.includes(haku))
+            let result = reseptit.filter(resepti => resepti.nimi.includes(haku) && haku != "" || resepti.kategoria === kategoria)
 
             if (result.length > 0) {
                 let haku = result.map(resepti => {
 
                     return (
                         <>
-                            <Box item key={resepti.id} sx={{ backgroundColor: '#80ced6', p: 2 }}>
+                            <Box key={resepti.id} sx={{ backgroundColor: '#80ced6', p: 2, marginTop: 5, marginLeft: 3 }}>
+                                {/**       <Box item key={resepti.id} sx={{ backgroundColor: '#80ced6', p: 2 }}> */}
                                 <Grid item key={resepti.id} >
                                     <Card sx={{ maxWidth: 350, backgroundColor: '#d5f4e6' }}>
                                         <CardHeader title={resepti.nimi} subheader={resepti.kuvaus} />
                                         {
                                             resepti.kuva ?
                                                 <CardContent>
-                                                    <CardMedia sx={{ height: 200, width: 300 }} component='img'
+                                                    <CardMedia sx={{ height: 200, width: 280, margin: 0 }} component='img'
                                                         image={resepti.kuva} />
                                                 </CardContent>
                                                 :
@@ -43,11 +52,13 @@ function ReseptiHaku({ reseptit }) {
                                 </Grid>
 
                             </Box>
+
                             <p key={resepti.id}>
                                 Kategoria: {resepti.kategoria} <br></br>
                                 Valmistusaika: {resepti.valmistusaika} min <br></br>
                                 Tähdet {resepti.tahdet} /5
                             </p >
+
                         </>
                     )
 
@@ -61,31 +72,32 @@ function ReseptiHaku({ reseptit }) {
     }
 
     return (
+        <Container>
+            <Box component='form'
+                sx={{ '& > :not(style)': { m: 1, width: '45ch' }, padding: 2 }}>
 
-        <Box component='form'
-            sx={{ '& > :not(style)': { m: 1, width: '35ch' }, padding: 2 }}>
+                <Typography variant="h4">Reseptihaku</Typography>
+                <Typography variant="body1">
+                    Hae reseptin nimellä tai osalla sitä:
+                </Typography>
+                <TextField name="nimi" variant="outlined" onChange={muuta} /><br />
+                <Typography variant="body1">
+                    Tai voit hakea reseptejä myös kategorioittain:
+                </Typography>
+                <FormControl variant="outlined" sx={{ m: 1, width: 200 }} name="lomakekontrol">
+                    <Select value={kategoria} onChange={muutaKategoria}>
+                        <MenuItem value=""></MenuItem>
+                        <MenuItem value={'Alkuruoka'}>Alkuruoka</MenuItem>
+                        <MenuItem value={'Pääruoka'}>Pääruoka</MenuItem>
+                        <MenuItem value={`Jälkiruoka`}>Jälkiuoka</MenuItem>
+                    </Select>
+                </FormControl><br />
+                {/**     */}
+                <Button variant="contained" onClick={hae}>Hae</Button>
+                {HaeReseptit()}
 
-            <Typography variant="h4">Reseptihaku</Typography>
-            <Typography variant="body1">
-                Hae reseptin nimellä tai osalla sitä:
-            </Typography>
-            <TextField name="nimi" variant="standard" onChange={muuta} /><br />
-            {/**      <Typography variant="body1">
-                Tai kategorioittain:
-            </Typography>
-            <FormControl variant="standard" sx={{ m: 1, width: 200 }} name="lomakekontrol">
-                <Select  >
-                    <MenuItem value=""></MenuItem>
-                    <MenuItem value={'Alkuruoka'}>Alkuruoka</MenuItem>
-                    <MenuItem value={'Pääruoka'}>Pääruoka</MenuItem>
-                    <MenuItem value={`Jälkiruoka`}>Jälkiuoka</MenuItem>
-                </Select>
-            </FormControl><br /> */}
-            <Button variant="contained" onClick={hae}>Hae</Button>
-            {HaeReseptit()}
-
-        </Box>
-
+            </Box>
+        </Container>
     )
 }
 
