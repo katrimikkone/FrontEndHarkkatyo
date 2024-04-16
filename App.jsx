@@ -2,12 +2,12 @@ import ReseptiHaku from "./components/ReseptiHaku";
 import ReseptiListaus from "./components/ReseptiListaus";
 import ReseptiLomake from "./components/ReseptiLomake";
 import TabsMUI from "./muinavi/TabsMUI";
-import { Typography, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from "@mui/material";
 import { green, teal, lime } from '@mui/material/colors'
 import DrawerMUI from "./muinavi/DrawerMUI";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Link, useRouteError, isRouteErrorResponse } from 'react-router-dom';
 import ListaaSuosikit from "./components/ListaaSuosikit";
 import { useState } from "react";
 
@@ -95,10 +95,21 @@ const reseptit = [
   }
 ]
 
+function Error() {
+  let error = useRouteError();
+  if (isRouteErrorResponse(error)) {
+    return (<Box component='h3'>{error.status} {error.data}
+      <Link to='/'>Etusivulle</Link></Box>);
+  }
+  return (<Box component='h3'>{error.message}
+    <Link to='/'>Etusivulle</Link></Box>);
+}
+
+
 const router = createBrowserRouter([
   {
     element: <DrawerMUI />,
-    // errorElement: <Error />,
+    errorElement: <Error />,
     children: [
       {
         path: '/',
@@ -114,7 +125,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'suosikit',
-        element: <ListaaSuosikit />,
+        element: <ListaaSuosikit reseptit={reseptit} />,
       }
     ]
   },

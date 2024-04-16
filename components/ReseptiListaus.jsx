@@ -10,11 +10,12 @@ function ReseptiListaus({ reseptit }) {
     const [favorites, setFavorites] = useState(reseptit.map(resepti => ({ id: resepti.id, favorite: resepti.favorite })));
 
     const handleClick = (id) => {
+        console.log("Searching.." + id)
         setFavorites(prevFavorites => prevFavorites.map(favorite => {
             if (favorite.id === id) {
                 return { ...favorite, favorite: !favorite.favorite };
             }
-            console.log(prevFavorites)
+            console.log("After... " + favorite.id)
             return favorite;
         }));
     };
