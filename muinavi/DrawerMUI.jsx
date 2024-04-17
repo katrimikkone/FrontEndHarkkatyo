@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListIcon from '@mui/icons-material/List';
 import HomeIcon from '@mui/icons-material/Home';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 //import { InboxIcon, MailIcon, ChevronLeftIcon, ChevronRightIcon } from '@mui/icons-material/'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link, Outlet } from 'react-router-dom';
@@ -37,6 +38,12 @@ function DrawerMUI() {
                     <ListItemButton>
                         <ListItemIcon><CreateIcon /></ListItemIcon>
                         <ListItemText primary='Lisää resepti' />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem component={Link} to='raportointi'>
+                    <ListItemButton>
+                        <ListItemIcon><AutoGraphIcon /></ListItemIcon>
+                        <ListItemText primary='Tilastoja' />
                     </ListItemButton>
                 </ListItem>
             </List>

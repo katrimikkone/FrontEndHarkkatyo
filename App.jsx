@@ -9,7 +9,7 @@ import { green, teal, lime } from '@mui/material/colors'
 import DrawerMUI from "./muinavi/DrawerMUI";
 import { createBrowserRouter, RouterProvider, Link, useRouteError, isRouteErrorResponse } from 'react-router-dom';
 import ListaaSuosikit from "./components/ListaaSuosikit";
-import { useState } from "react";
+import Raportointi from "./components/Raportointi";
 
 
 const reseptit = [
@@ -126,6 +126,10 @@ const router = createBrowserRouter([
       {
         path: 'suosikit',
         element: <ListaaSuosikit reseptit={reseptit} />,
+      },
+      {
+        path: 'raportointi',
+        element: <Raportointi />,
       }
     ]
   },
