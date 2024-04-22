@@ -31,7 +31,7 @@ const reseptit = [
     valmistusaika: 40,
     tahdet: 5,
     kuva: 'pics/tallarinesverdes.jpg',
-    favorite: false,
+    favorite: true,
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ const reseptit = [
     kategoria: 'Jälkiruoka',
     kuvaus: 'Dessert featuring a luscious layer of dulce de leche topped with a light, caramelized meringue',
     valmistusaika: 60,
-    tahdet: 5,
+    tahdet: 2,
     kuva: 'pics/suspirolimeno.jpg',
     favorite: false,
   },
@@ -69,7 +69,7 @@ const reseptit = [
     kategoria: 'Pääruoka',
     kuvaus: 'Fresh seafood combined with fish cooked in lime juice and ají.',
     valmistusaika: 45,
-    tahdet: 5,
+    tahdet: 4,
     kuva: 'pics/cevichemixto.jpg',
     favorite: false,
   },
@@ -89,7 +89,7 @@ const reseptit = [
     kategoria: 'Alkuruoka',
     kuvaus: 'Mashed potato made with ají amarillo chili pepper layered with tuna fillet and a slight hint of mayonnaise topped off with a slice of boiled egg.',
     valmistusaika: 55,
-    tahdet: 5,
+    tahdet: 1,
     kuva: 'pics/causadeatun.jpg',
     favorite: true,
   }
@@ -129,7 +129,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'raportointi',
-        element: <Raportointi />,
+        element: <Raportointi reseptit={reseptit} />,
       }
     ]
   },

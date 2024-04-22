@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Select, MenuItem, Container, FormControl, InputLabel, Paper, Box, TextField, Typography, Button } from '@mui/material';
 
-function ReseptiLomake() {
+function ReseptiLomake({ reseptit }) {
     const [resepti, setResepti] = useState(
         {
             nimi: '',
@@ -51,7 +51,7 @@ function ReseptiLomake() {
 
                     <Typography variant="h4">Lisää resepti</Typography>
                     <TextField name="nimi" label="Nimi" variant="outlined" value={resepti.nimi} onChange={muuta} /><br />
-                    <FormControl variant="outlined" sx={{ m: 1, width: 200 }} name="lomakekontrol">
+                    <FormControl variant="outlined" sx={{ m: 1, width: 300 }} name="lomakekontrol">
                         <InputLabel >Kategoria</InputLabel>
                         <Select value={resepti} onChange={handleChange} label="Kategoria" >
                             <MenuItem value=""></MenuItem>
@@ -64,7 +64,7 @@ function ReseptiLomake() {
                     <TextField name="kuvaus" label="Kuvaus" variant="outlined" multiline rows={4} value={resepti.kuvaus} onChange={muuta} /><br />
                     <TextField label="Valmistusaika" variant="outlined" value={resepti.valmistusaika} onChange={muuta} /><br />
 
-                    <FormControl variant="outlined" sx={{ m: 1, width: 200 }} id="formcontrol">
+                    <FormControl variant="outlined" sx={{ m: 1, width: 300 }} id="formcontrol">
                         <InputLabel >Tähdet</InputLabel>
                         <Select value={resepti} onChange={handleChange} label="Tähdet" >
                             <MenuItem value=""></MenuItem>

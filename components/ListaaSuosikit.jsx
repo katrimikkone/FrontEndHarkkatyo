@@ -11,7 +11,7 @@ function ListaaSuosikit({ reseptit }) {
     const handleClick = (id) => {
         console.log("Searching.." + id)
         console.log(suosikkiReseptitList)
-        setFavorites(prevFavorites => prevFavorites.map(favorite => {
+        setFavorites(favorites => favorites.map(favorite => {
             if (favorite.id === id) {
                 return { ...favorite, favorite: !favorite.favorite };
             }

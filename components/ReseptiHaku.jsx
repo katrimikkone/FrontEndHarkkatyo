@@ -26,44 +26,33 @@ function ReseptiHaku({ reseptit }) {
         //console.log(reseptit)
         if (haetaan) {
             let result = reseptit.filter(resepti => resepti.nimi.includes(haku) && haku != "" || resepti.kategoria === kategoria)
-
             if (result.length > 0) {
+
                 let haku = result.map(resepti => {
-
                     return (
-                        <>
-                            <Box key={resepti.id} sx={{ backgroundColor: '#80ced6', p: 2, marginTop: 5, marginLeft: 3 }}>
-                                {/**       <Box item key={resepti.id} sx={{ backgroundColor: '#80ced6', p: 2 }}> */}
-                                <Grid item key={resepti.id} >
-                                    <Card sx={{ maxWidth: 350, backgroundColor: '#d5f4e6' }}>
-                                        <CardHeader title={resepti.nimi} subheader={resepti.kuvaus} />
-                                        {
-                                            resepti.kuva ?
-                                                <CardContent>
-                                                    <CardMedia sx={{ height: 200, width: 280, margin: 0 }} component='img'
-                                                        image={resepti.kuva} />
-                                                </CardContent>
-                                                :
-                                                <CardContent>
-                                                    <Typography >Ei kuvaa</Typography>
-                                                </CardContent>
-                                        }
-                                    </Card>
-                                </Grid>
-
-                            </Box>
-
-                            <p key={resepti.id}>
-                                Kategoria: {resepti.kategoria} <br></br>
-                                Valmistusaika: {resepti.valmistusaika} min <br></br>
-                                Tähdet {resepti.tahdet} /5
-                            </p >
-
-                        </>
+                        <Grid item key={resepti.id} sx={{ backgroundColor: '#80ced6', p: 2, marginTop: 5, marginLeft: 3 }}>
+                            <Card sx={{ maxWidth: 350, backgroundColor: '#d5f4e6' }}>
+                                <CardHeader title={resepti.nimi} subheader={resepti.kuvaus} />
+                                {
+                                    resepti.kuva ?
+                                        <CardContent>
+                                            <CardMedia sx={{ height: 200, width: 280, margin: 0 }} component='img'
+                                                image={resepti.kuva} />
+                                            <p>
+                                                Kategoria: {resepti.kategoria} <br></br>
+                                                Valmistusaika: {resepti.valmistusaika} min <br></br>
+                                                Tähdet {resepti.tahdet} /5
+                                            </p >
+                                        </CardContent>
+                                        :
+                                        <CardContent>
+                                            <Typography >Ei kuvaa</Typography>
+                                        </CardContent>
+                                }
+                            </Card>
+                        </Grid >
                     )
-
                 }) //map
-
                 return (haku)
             } else {
                 return (<p>Kyseisellä haulla ei löytynyt reseptejä!</p>)

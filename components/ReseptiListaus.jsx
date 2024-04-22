@@ -2,7 +2,7 @@ import { Grid, Card, Container, CardHeader, Box, CardMedia, IconButton, Typograp
 import { useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { red, grey } from '@mui/material/colors';
-
+import { Rating } from '@mui/material'
 
 
 function ReseptiListaus({ reseptit }) {
@@ -30,14 +30,9 @@ function ReseptiListaus({ reseptit }) {
                 {
                     reseptit?.map((resepti) => {
                         return (
-                            <Box key={resepti.id} sx={{ p: 2, marginTop: 5, marginLeft: 3 }}>
+                            <Grid key={resepti.id} sx={{ p: 2, marginTop: 5, marginLeft: 3 }}>
                                 <Grid item xs={12} key={resepti.id}>
                                     <Card sx={{ maxWidth: 350 }}>
-                                        {/**  <Box key={resepti.id} sx={{ backgroundColor: '#80ced6', p: 2, marginTop: 5, marginLeft: 3 }}>
-                                <Grid item xs={12} key={resepti.id}>
-                                    <Card sx={{ maxWidth: 350, backgroundColor: '#d5f4e6' }}>*/}
-                                        {/**          <Grid item xs={12} key={resepti.id}>
-                                    <Card sx={{maxWidth:350}}>*/}
                                         <CardHeader title={resepti.nimi} subheader={resepti.kuvaus} />
                                         {
                                             resepti.kuva ?
@@ -53,11 +48,11 @@ function ReseptiListaus({ reseptit }) {
                                         <IconButton onClick={() => handleClick(resepti.id)} sx={{ color: favorites.find(fav => fav.id === resepti.id)?.favorite ? red[400] : grey[500] }} aria-label="add to favorites">
                                             <FavoriteIcon />
                                         </IconButton>
-
+                                        <Rating name="read-only" value={resepti.tahdet} readOnly />
                                     </Card>
                                 </Grid>
-                            </Box>
 
+                            </Grid >
                         )
 
                     })
