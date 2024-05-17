@@ -1,19 +1,39 @@
 import * as React from 'react'
+import { useState, useEffect } from 'react'
 import { PieChart } from '@mui/x-charts/PieChart';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { Container, Typography, Button, Grid, Rating } from '@mui/material'
+import { Container, Typography, Button, Paper, Rating, Link } from '@mui/material'
+import { getReseptit } from './reseptit';
 
-function Raportointi({ reseptit }) {
+
+//function Raportointi({ reseptit }) {
+function Raportointi() {
+
+    const [reseptit, setReseptit] = useState([])
+
+    const haeReseptit = async () => {
+        try {
+            const response = await getReseptit();
+            setReseptit(response.data)
+        } catch (error) {
+            setReseptit([]);
+        }
+    }
+
+    useEffect(() => { //laukaistaan tietokannasta haku eli reseptit.jsx
+        haeReseptit();
+    }, []);
 
     const result1 = reseptit.filter(resepti => resepti.kategoria === 'Alkuruoka')
     const result2 = reseptit.filter(resepti => resepti.kategoria === 'Pääruoka')
     const result3 = reseptit.filter(resepti => resepti.kategoria === 'Jälkiruoka')
 
-    return (
-        <>
-            <Container>
+    console.log(reseptit)
 
-                <Typography variant="h4" textAlign="center">Chart</Typography>
+    return (
+        <Paper sx={{ paddingBottom: 2 }}>
+            <Container>
+                <Typography variant="h4">Tilastointia</Typography>
                 <PieChart
                     series={[
                         {
@@ -27,9 +47,11 @@ function Raportointi({ reseptit }) {
                     width={400}
                     height={200}
                 />
-
+                <Link to='/'>
+                    <Button sx={{ marginLeft: 10, marginTop: 2 }} variant="contained">Etusivulle</Button>
+                </Link>
             </Container>
-        </>
+        </Paper>
 
     )
 

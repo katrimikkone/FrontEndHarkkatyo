@@ -10,9 +10,10 @@ import DrawerMUI from "./muinavi/DrawerMUI";
 import { createBrowserRouter, RouterProvider, Link, useRouteError, isRouteErrorResponse } from 'react-router-dom';
 import ListaaSuosikit from "./components/ListaaSuosikit";
 import Raportointi from "./components/Raportointi";
+import Muokkaa from "./components/Muokkaa";
 
 
-const reseptit = [
+/*const reseptit = [
   {
     id: 1,
     nimi: 'Pollo saltado',
@@ -93,7 +94,7 @@ const reseptit = [
     kuva: 'pics/causadeatun.jpg',
     favorite: true,
   }
-]
+] */
 
 function Error() {
   let error = useRouteError();
@@ -113,11 +114,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <ReseptiListaus reseptit={reseptit} />
+        element: <ReseptiListaus /> //reseptit={reseptit}
       },
       {
         path: 'hae',
-        element: <ReseptiHaku reseptit={reseptit} />,
+        element: <ReseptiHaku />,//reseptit={reseptit}
       },
       {
         path: 'lisaa',
@@ -125,11 +126,15 @@ const router = createBrowserRouter([
       },
       {
         path: 'suosikit',
-        element: <ListaaSuosikit reseptit={reseptit} />,
+        element: <ListaaSuosikit />,//reseptit={reseptit}
       },
       {
         path: 'raportointi',
-        element: <Raportointi reseptit={reseptit} />,
+        element: <Raportointi />,//reseptit={reseptit}
+      },
+      {
+        path: 'muokkaa/:id/:nimi/:kategoria/:kuvaus:/:valmistusaika/:tahdet/:kuvaNimi:',
+        element: <Muokkaa />,//reseptit={reseptit}
       }
     ]
   },

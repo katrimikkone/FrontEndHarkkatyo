@@ -1,10 +1,28 @@
-import { useState } from "react";
-import { Grid, Card, CardHeader, Box, CardMedia, Typography, CardContent, Button, TextField, Container, ImageList, FormControl, MenuItem, Select } from '@mui/material';
+import { useState, useEffect } from "react";
+import { Grid, Card, CardHeader, Box, CardMedia, Typography, CardContent, Button, TextField, Container, FormControl, MenuItem, Select } from '@mui/material';
+import { getReseptit } from "./reseptit";
 
-function ReseptiHaku({ reseptit }) {
+//function ReseptiHaku({ reseptit }) {
+function ReseptiHaku() {
     const [haku, setHaku] = useState('');
+    const [reseptit, setResepti] = useState([]);
     const [haetaan, setHaetaan] = useState(false);
     const [kategoria, setKategoria] = useState('')
+
+
+    const haeKaikkiReseptit = async () => { //tehdään työ taustalla
+        try {
+            const response = await getReseptit();
+            setResepti(response.data)
+        } catch (error) {
+            setResepti([]);
+        }
+    }
+
+    useEffect(() => { //laukaistaan tietokannasta haku eli reseptit.jsx
+        haeKaikkiReseptit();
+    }, []);
+
 
     const muuta = (e) => {
         setHaku(e.target.value)
@@ -22,6 +40,10 @@ function ReseptiHaku({ reseptit }) {
         console.log("Selected category:", kategoria);
     }
 
+    const haeKuva = (e) => {
+
+    }
+
     const HaeReseptit = () => {
         //console.log(reseptit)
         if (haetaan) {
@@ -36,8 +58,10 @@ function ReseptiHaku({ reseptit }) {
                                 {
                                     resepti.kuva ?
                                         <CardContent>
-                                            <CardMedia sx={{ height: 200, width: 280, margin: 0 }} component='img'
-                                                image={resepti.kuva} />
+                                            <CardMedia sx={{ height: 200, width: 300 }} component='img'
+                                                image={'http://localhost:8080/download/' + resepti.kuva}    //Tänne palvelimen osoite ja kuvan nimi
+                                                // image={resepti.kuva}
+                                                alt={resepti.kuvaus} />
                                             <p>
                                                 Kategoria: {resepti.kategoria} <br></br>
                                                 Valmistusaika: {resepti.valmistusaika} min <br></br>
